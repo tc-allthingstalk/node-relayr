@@ -13,7 +13,8 @@
   "keywords": [
     "relayr",
     "sensor",
-    "pubnub"
+    "mqtt",
+    "wunderbar"
   ],
   "contributors": [{"name":"Max Irwin"}, {"name": "Paul Hopton"}],
   "license": "MIT",
