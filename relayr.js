@@ -1,5 +1,6 @@
 var request = require("request");
-var pubnub = require("pubnub");
+var mqtt = require("mqtt");
+var fs = require("fs");
 
 var relayr = module.exports = {};
 
@@ -7,16 +8,14 @@ var listeners = [];
 
 relayr.connect = function(options){
 
-	getPubNubKeys(options,function(err,data){
+	getAccessTokens(options,function(err,data){
 
-		var pubnubkeys = {};
-
-		pubnubkeys.cipher_key = data.cipherKey;
-		pubnubkeys.auth_key = data.authKey;
-		pubnubkeys.subscribe_key = data.subscribeKey;
-		pubnubkeys.channel = data.channel;
+        if (err) {
+            console.log(err);
+        } else {
+            connect(data);
+        }
 		
-		listen(pubnubkeys);
 
 	});
 
@@ -26,56 +25,71 @@ relayr.listen = function(listener){
 	listeners.push(listener);
 };
 
-var getPubNubKeys = function(relayrkeys,callback){
+var getAccessTokens = function(relayrkeys,callback){
 
-	var app_id = relayrkeys.app_id;
 	var dev_id = relayrkeys.dev_id;
 	var token = relayrkeys.token;
 
 	var options = {
-		url:"https://api.relayr.io/devices/"+dev_id+"/apps/"+app_id,
-		headers: {'Authorization': 'Bearer ' + token}
+		url:"https://api.relayr.io/channels",
+		headers: {'Authorization': 'Bearer ' + token},
+        json: true,
+        body : {
+            "deviceId":dev_id,
+            "transport": "mqtt"
+        }
 	}
 
-	console.log("Retrieving Pubnub Keys");
+	console.log("Retrieving Access Tokens");
 
-	request.post(options,function(err,data){
-		var pubnubkeys = {};
-		if(!err) {
-			try {
-				pubnubkeys = JSON.parse(data.body);
-			} catch(ex) {
-				err = ex;
-			}
-		}
-		callback(err,pubnubkeys);
+	request.post(options,function(err,data, body){
+		callback(err,body);
 	});
 
 };
 
-var listen = function(pubnubkeys) {
-	
-	var connection = pubnub.init(pubnubkeys);
+var handleData = function (err, message) {
+    listeners.forEach(function(listener){
+        listener(err, message);
+    });
+}
+var connect = function(channelInfo) {
+    var credentials = channelInfo.credentials;
+        console.log('connecting');
+	var client = mqtt.connect({
+        servers:[{'host':'mqtt.relayr.io','port':8883}],
+        username: credentials.user,
+        password: credentials.password,
+        clientId: credentials.clientId,
+        protocol : 'mqtts',
+        certPath: __dirname + '/relayr.crt',
+        rejectUnauthorized : false, 
+    });
 
-	console.log("Connecting to Relayr Sensors");
+    client.on('connect', function () {
+        console.log('connected');
+        client.subscribe(credentials.topic, function (err, granted) {
+            if (err) {
+                console.log(err);
+            } else {
+                //console.log(granted);
+            }
+        });
+    });
 
-	connection.subscribe({
-		channel  : pubnubkeys.channel,
-		callback : function(message) {
-			var err = null;
-			try {
-				message = JSON.parse(message);
-			} catch (ex) {
-				err = ex;
-			}
-			listeners.forEach(function(listener){
-				listener(err,message);
-			});
-		},
-		error:function(err) {
-			console.log("Relayr Error!");
-			console.log(err);
-		}
-	});
+    client.on('error', function (error) {
+        console.log("connection error");
+        console.log(error);
+    });
+
+    client.on('message', function(topic, message, packet) {
+        var err;
+        try {
+            message = JSON.parse(new Buffer(message).toString("ascii"));
+        } catch (ex) {
+            err = ex;
+        }
+        handleData(err, message);
+    })
 
 };

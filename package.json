@@ -1,6 +1,6 @@
 {
   "name": "relayr",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Relayr sensor SDK for node",
   "main": "relayr.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "sensor",
     "pubnub"
   ],
-  "author": "Max Irwin",
+  "contributors": [{"name":"Max Irwin"}, {"name": "Paul Hopton"}],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/binarymax/node-relayr/issues"
@@ -23,6 +23,6 @@
   "homepage": "https://github.com/binarymax/node-relayr",
   "dependencies": {
     "request": "^2.45.0",
-    "pubnub": "^3.6.7"
+    "mqtt": "1.0.10"
   }
 }
