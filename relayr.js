@@ -1,6 +1,8 @@
 var request = require("request");
 var mqtt = require("mqtt");
 var fs = require("fs");
+var http = require("http");
+var CERT = __dirname + '/relayr.crt';
 
 var relayr = module.exports = {};
 
@@ -8,17 +10,34 @@ var listeners = [];
 
 relayr.connect = function(options){
 
-	getAccessTokens(options,function(err,data){
 
-        if (err) {
-            console.log(err);
+    var goCertificate = function () {
+        getAccessTokens(options,function(err,data){
+
+            if (err) {
+                console.log(err);
+            } else {
+                connect(data);
+            }
+            
+
+        });
+    }
+
+    fs.exists(CERT, function(exists){
+    
+        if (!exists) {
+            var file = fs.createWriteStream(CERT);
+            var request = http.get("http://mqtt.relayr.io/relayr.crt", function(response) {
+              response.pipe(file);
+              response.on('close', function () {
+                goCertificate();
+              });
+            });
         } else {
-            connect(data);
+            goCertificate();
         }
-		
-
-	});
-
+    });
 };
 
 relayr.listen = function(listener){
@@ -62,7 +81,7 @@ var connect = function(channelInfo) {
         password: credentials.password,
         clientId: credentials.clientId,
         protocol : 'mqtts',
-        certPath: __dirname + '/relayr.crt',
+        certPath: CERT,
         rejectUnauthorized : false, 
     });
 
