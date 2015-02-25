@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/binarymax/node-relayr.git"
+    "url": "git://github.com/relayr/node-relayr.git"
   },
   "keywords": [
     "relayr",
@@ -18,9 +18,9 @@
   "contributors": [{"name":"Max Irwin"}, {"name": "Paul Hopton"}],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/binarymax/node-relayr/issues"
+    "url": "https://github.com/relayr/node-relayr/issues"
   },
-  "homepage": "https://github.com/binarymax/node-relayr",
+  "homepage": "https://github.com/relayr/node-relayr",
   "dependencies": {
     "request": "^2.45.0",
     "mqtt": "1.0.10"
