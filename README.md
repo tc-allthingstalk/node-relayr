@@ -2,7 +2,12 @@
 
 Relayr sensor SDK for node.
 
-Works by connecting to the PubNub channel associated with your Relayr WunderBar sensor.
+Works by connecting to the MQTT channel associated with your Relayr connected
+device.
+
+## Status
+This is still not much more thatn a utiity script, but will grow to expose a
+lot more useful functionality.
 
 ## installation
 
@@ -45,3 +50,8 @@ relayr.listen(function(err,data){
 });
 
 ```
+## Credits
+Big thanks to BinaryMax for putting in the ground work
+
+## License
+MIT License
