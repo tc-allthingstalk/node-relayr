@@ -8,10 +8,9 @@ var relayrKeys = {
 };
 
 relayr.connect(relayrKeys.token, relayrKeys.dev_id);
-relayr.connect(relayrKeys.token, "a0dde2dc-bce6-4df3-8f6c-2b773ce6fb90");
 
 relayr.on('connect', function () {
-    console.log("hell yeah");
+    relayr.connect(relayrKeys.token, "a0dde2dc-bce6-4df3-8f6c-2b773ce6fb90");
 });
 relayr.on('data', function (topic, msg) {
     console.log("TOPIC:"+topic);
