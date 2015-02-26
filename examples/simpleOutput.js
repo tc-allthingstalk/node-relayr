@@ -1,4 +1,4 @@
-var relayr = require("../relayr");
+var relayr = require("../");
 
 var relayrKeys = {
     app_id: "0e5b71a9-ad78-4e24-9ec1-8b3de04ff710",
