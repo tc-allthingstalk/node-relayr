@@ -16,14 +16,22 @@
     "mqtt",
     "wunderbar"
   ],
-  "contributors": [{"name":"Max Irwin"}, {"name": "Paul Hopton"}],
+  "contributors": [
+    {
+      "name": "Max Irwin"
+    },
+    {
+      "name": "Paul Hopton"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/relayr/node-relayr/issues"
   },
   "homepage": "https://github.com/relayr/node-relayr",
   "dependencies": {
-    "request": "^2.45.0",
-    "mqtt": "1.0.10"
+    "bunyan": "^1.3.4",
+    "mqtt": "1.0.10",
+    "request": "^2.45.0"
   }
 }
