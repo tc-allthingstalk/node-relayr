@@ -1,23 +1,18 @@
-var relayr = require("../");
+var Relayr = require("../");
 
-var relayrKeys = {
-    app_id: "304c4901-d9fc-4683-9511-672a65ceeff6",
-    dev_id: "2ea6a1ff-6cdc-49ab-8680-4f7d11752a87",
-    token:  "2r.MY-kAs-eVN6OOT_YThGH4Z9Z67Egb"
-};
+var app_id = "0e5b71a9-ad78-4e24-9ec1-8b3de04ff710";
+var dev_id = "8736887d-7661-4501-a4a6-c8a42ce461ba";
+var token  = "BwwORoJcI9iKDN9NEHs1hXYOeCV3cEoS";
+var relayr = new Relayr(app_id);
 
-relayr.connect(relayrKeys);
 
-relayr.on("connect", function () {
- console.log("EVENT EMITTED");
+relayr.connect(token, dev_id);
+
+relayr.on("data", function (topic, msg) {
+    console.log(msg);
 });
 
-relayr.listen(function(err,data){
-    //fires for every sensor event 
-    if (err) {
-        console.log("Oh No!", err)
-    } else {
-        console.log(data);
-    }
+relayr.on("connect", function () {
+ console.log("connected");
 });
 
