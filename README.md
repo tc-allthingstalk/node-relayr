@@ -58,7 +58,7 @@ relayr.command(token, dev_id,
     }, 
     function (err,code) {
         console.log(err||code)
-    };
+    });
 ```
 
 get Info about the registered user
