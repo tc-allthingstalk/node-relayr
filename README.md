@@ -20,36 +20,57 @@ npm install relayr
 Require the module
 
 ```js
-var relayr = require('relayr');
+var Relayr = require('relayr');
 ```
 
 Get the following from your account at relayr.io
 
 ```js
-var relayrKeys = {
-	app_id: "YOURAPPID",
-	dev_id: "YOURDEVICEID",
-	token:  "YOURSENSORTOKEN"
-};
+var app_id = "YOURAPPID";
+var dev_id = "YOURDEVICEID";
+var token  = "YOURSENSORTOKEN";
+```
+Initialise the libary
+
+```js
+var relayr = new Relayr(app_id);
 ```
 
 Connect using the keys:
 ```js
-relayr.connect(relayrKeys);
+relayr.connect(token, dev_id);
 ```
 
 Listen and do stuff
 ```js
-relayr.listen(function(err,data){
-	//fires for every sensor event
-	if (err) {
-		console.log("Oh No!", err)
-	} else {
-		console.log(data);
-	}
-});
-
+relayr.on('data', function (topic, msg) {
+        console.log(topic + ":" + msg);
+}
 ```
+
+Send a Command
+```js
+relayr.command(token, dev_id, 
+    {path:"led", 
+    cmd:"led", 
+    value:true}, 
+    function (err,code) {console.log(err||code)};
+```
+
+get Info about the registered user
+```js
+relayr.user(token, function (err, user) {
+    console.log(err || user);
+}
+```
+
+get Info about the users devices
+```js
+relayr.devices(user_id, token, function (err, devices) {
+    console.log(err || devices);
+}
+```
+
 ## Credits
 Big thanks to BinaryMax for putting in the ground work
 
