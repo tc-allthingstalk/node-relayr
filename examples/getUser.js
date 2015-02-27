@@ -1,20 +1,30 @@
-var relayr = require("../");
+var Relayr = require("../");
+var relayr = new Relayr();
 
-var token =  "2r.MY-kAs-eVN6OOT_YThGH4Z9Z67Egb";
+var token = "BwwORoJcI9iKDN9NEHs1hXYOeCV3cEoS";
 
 
 relayr.user(token, function (err, user) {
     console.log(err);
-    console.log(user);
 
-    user.ping();
     
-    user.devices(function (err, devices) {
+    relayr.devices(user.id, token, function (err, devices) {
+
         devices.forEach(function (device) {
-            if (device.model.manufacturer === "Siemens") {
+            if (device.model.id === "ecf6cf94-cb07-43ac-a85e-dccf26b48c86") {
                 console.log(device);
+                relayr.connect(token, device.id);
             }
         });
+        
     } );
+});
+
+relayr.on('connect', function () {
+    console.log('connect');
+})
+relayr.on('data', function (topic, msg) {
+    console.log("TOPIC:"+topic);
+    console.log(msg);
 });
 
