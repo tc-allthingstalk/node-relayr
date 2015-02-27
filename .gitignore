@@ -29,6 +29,7 @@ node_modules
 
 # editor files
 *.swp
+.DS_Store
 
 #etcetera
 *.crt
