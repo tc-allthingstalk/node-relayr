@@ -53,7 +53,7 @@ Send a Command
 relayr.command(token, dev_id, 
     {
         path:"led", 
-        cmd:"led", 
+        command:"led", 
         value:true
     }, 
     function (err,code) {

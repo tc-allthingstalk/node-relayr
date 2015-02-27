@@ -6,7 +6,7 @@ var Relayr = require("../");
 
 var app_id = "0e5b71a9-ad78-4e24-9ec1-8b3de04ff710";
 var token =  "BwwORoJcI9iKDN9NEHs1hXYOeCV3cEoS";
-var snd =  "a0dde2dc-bce6-4df3-8f6c-2b773ce6fb90";
+var snd =  "4a8bf823-ac9d-48dd-b917-d0c3755e68c6";
 
 var relayr = new Relayr(app_id);
 
@@ -17,9 +17,9 @@ function respond(err, data) {
 }
 function blink() {
     console.log("BLINK");
-    relayr.command(token, snd, {path:"led", cmd:"led", value:true}, respond);
+    relayr.command(token, snd, {path:"led", command:"cmd", value:1}, respond);
     setTimeout(function () {
-        relayr.command(token, snd, {path:"led", cmd:"led", value:false}, respond)
+        relayr.command(token, snd, {path:"led", command:"cmd", value:0}, respond)
     }, 1000);
 }
 
