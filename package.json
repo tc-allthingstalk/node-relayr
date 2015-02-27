@@ -2,7 +2,7 @@
   "name": "relayr",
   "version": "0.2.2",
   "description": "Relayr sensor SDK for node",
-  "main": "relayr.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
