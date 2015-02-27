@@ -75,6 +75,13 @@ relayr.devices(user_id, token, function (err, devices) {
 }
 ```
 
+get Info about the an individual device
+```js
+relayr.deviceModel(token, dev_id, function (err, model) {
+    console.log(err || model);
+}
+```
+
 ## Credits
 Big thanks to BinaryMax for putting in the ground work
 

@@ -11,6 +11,21 @@ var snd =  "a0dde2dc-bce6-4df3-8f6c-2b773ce6fb90";
 var lcp =  "a2242103-c522-4b6f-a533-7740db2cb891";
 relayr = new Relayr(app_id);
 
+relayr.deviceModel(token, htu, function (err, description) {
+    console.log("-------------- Temperature & Humidity --------------------");
+    console.log(description);
+    console.log("----------------------------------------------------------");
+});
+relayr.deviceModel(token, snd, function (err, description) {
+    console.log("-------------- Sound Level -------------------------------");
+    console.log(description);
+    console.log("----------------------------------------------------------");
+});
+relayr.deviceModel(token, lcp, function (err, description) {
+    console.log("-------------- Light, Color & Proximity ------------------");
+    console.log(description);
+    console.log("----------------------------------------------------------");
+});
 
 relayr.connect(token, htu);
 relayr.connect(token, snd);
