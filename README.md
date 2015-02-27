@@ -51,10 +51,14 @@ relayr.on('data', function (topic, msg) {
 Send a Command
 ```js
 relayr.command(token, dev_id, 
-    {path:"led", 
-    cmd:"led", 
-    value:true}, 
-    function (err,code) {console.log(err||code)};
+    {
+        path:"led", 
+        cmd:"led", 
+        value:true
+    }, 
+    function (err,code) {
+        console.log(err||code)
+    };
 ```
 
 get Info about the registered user
