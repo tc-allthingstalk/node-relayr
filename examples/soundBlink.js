@@ -7,8 +7,8 @@ var Relayr = require("../");
 var app_id = "0e5b71a9-ad78-4e24-9ec1-8b3de04ff710";
 var token =  "BwwORoJcI9iKDN9NEHs1hXYOeCV3cEoS";
 var snd =  "a0dde2dc-bce6-4df3-8f6c-2b773ce6fb90";
-relayr = new Relayr(app_id);
 
+var relayr = new Relayr(app_id);
 
 relayr.connect(token, snd);
 
