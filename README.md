@@ -70,7 +70,7 @@ relayr.user(token, function (err, user) {
 
 get Info about the users devices
 ```js
-relayr.devices(user_id, token, function (err, devices) {
+relayr.devices(app_id, token, function (err, devices) {
     console.log(err || devices);
 }
 ```
